@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Thanh Toán VietQR</title>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial;
+    }
+
+    .app {
+        width: 360px;
+        background: white;
+        border-radius: 20px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    input {
+        width: 90%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        background: #00c6ff;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    img {
+        margin-top: 20px;
+        width: 250px;
+        border-radius: 10px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="app">
+    <h2>💳 QR Thanh Toán</h2>
+
+    <input type="text" id="name" placeholder="Nội dung chuyển khoản">
+    <input type="number" id="amount" placeholder="Số tiền">
+
+    <button onclick="generateQR()">Tạo QR</button>
+
+    <img id="qr" src="" style="display:none;">
+</div>
+
+<script>
+function generateQR() {
+    let name = document.getElementById("name").value;
+    let amount = document.getElementById("amount").value;
+
+    if (amount === "") {
+        alert("Nhập số tiền!");
+        return;
+    }
+
+    // ⚠️ THAY THÔNG TIN CỦA BẠN Ở ĐÂY
+    let bank = "MB";              // MBBank
+    let stk = "01234567";       // Số tài khoản
+    let accountName = "NGUYEN VAN A";
+
+    let url = `https://img.vietqr.io/image/${bank}-${stk}-compact.png?amount=${amount}&addInfo=${encodeURIComponent(name)}&accountName=${encodeURIComponent(accountName)}`;
+
+    let qrImg = document.getElementById("qr");
+    qrImg.src = url;
+    qrImg.style.display = "block";
+}
+</script>
+
+</body>
+</html>
